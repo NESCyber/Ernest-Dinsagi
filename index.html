@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A digital archive of a beautiful love story with Dinsagi. A reflection on shared tea, high school classrooms, distance, and the lessons of letting go.">
+    <title>The Story We Once Wrote</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loader" class="loader-container">
+        <div class="loader-content">
+            <span class="loader-heart">❤️</span>
+            <h2 class="loader-title">The Story We Once Wrote</h2>
+            <div class="loader-progress-bar">
+                <div class="loader-progress"></div>
+            </div>
+            <p class="loader-sub">Preparing a memory box...</p>
+        </div>
+    </div>
+
+    <!-- Background Canvas for Particles -->
+    <canvas id="particleCanvas"></canvas>
+
+
+    <!-- Background Music & Controls -->
+    <div class="audio-controls" id="audioContainer">
+        <button id="musicToggle" class="music-toggle" aria-label="Toggle music">
+            <svg class="music-icon icon-play" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" fill="currentColor"/>
+            </svg>
+            <svg class="music-icon icon-mute hidden" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.03c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" fill="currentColor"/>
+            </svg>
+        </button>
+        <audio id="bgMusic" loop>
+            <source src="assets/music/I Need You   Reynard Silva.m4a" type="audio/mp4">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <!-- Floating Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo">Chapters of Us</div>
+        <button class="nav-mobile-toggle" id="navToggle" aria-label="Open Menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#hero" class="nav-item active">Intro</a></li>
+            <li><a href="#beginning" class="nav-item">Our Beginning</a></li>
+            <li><a href="#journey" class="nav-item">Our Journey</a></li>
+            <li><a href="#gallery" class="nav-item">Memories</a></li>
+            <li><a href="#videos" class="nav-item">Moments</a></li>
+            <li><a href="#letter" class="nav-item">Letter</a></li>
+            <li><a href="#changed" class="nav-item">Paths</a></li>
+            <li><a href="#lessons" class="nav-item">Reflections</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Wrapper -->
+    <main>
+
+        <!-- 1. Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-bg-overlay"></div>
+            <div class="hero-content">
+                <span class="hero-subtitle scroll-reveal">Dedicated to Dinsagi ❤️</span>
+                <h1 class="hero-title scroll-reveal">The Story We Once Wrote</h1>
+                <p class="hero-quote scroll-reveal">
+                    "Every person we meet leaves a chapter in our story. And even if the book must close, the ink we wrote with remains beautiful."
+                </p>
+                <div class="hero-actions scroll-reveal">
+                    <a href="#beginning" class="btn btn-primary btn-glow">Begin Our Story</a>
+                </div>
+            </div>
+            <div class="hero-scroll-indicator">
+                <span class="mouse">
+                    <span class="wheel"></span>
+                </span>
+                <span class="arrow-down"></span>
+            </div>
+        </section>
+
+        <!-- 2. Our Beginning Section -->
+        <section id="beginning" class="section-padding bg-dark">
+            <div class="container">
+                <div class="section-header text-center scroll-reveal">
+                    <span class="section-tag">Chapter I</span>
+                    <h2 class="section-title">The First Spark</h2>
+                    <p class="section-subtitle">How two paths crossed in Tamale</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="timeline-container">
+                    <div class="timeline-track"></div>
+                    
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline-item left scroll-reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">May 15, 2021</span>
+                            <h3>Love at First Sight</h3>
+                            <p>It was at an extra class organized by our masters back in Presec Tamale. My friend <em>"Black"</em> and I arrived early and sat inside. Then, she walked in with her friends—Fauzia and Khadija. In that single instant, my heart stopped. I turned to Black and told him, 'She is incredibly beautiful.' That night, sleep refused to find me; she ran through my mind on a loop.</p>
+                            <div class="timeline-img-container">
+                                <img src="assets/images/Her and me.jpg" alt="Dinsagi with Fauzia and Khadijah" class="timeline-img">
+                            </div>
+                            <div class="timeline-icon">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="var(--color-accent)"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline-item right scroll-reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">The Pursuit</span>
+                            <h3>Gaining the Courage</h3>
+                            <p>Terrified of rejection, I couldn't bring myself to shoot my shot. I confided in Fauzia, who encouraged me to try. Fauzia spoke to Khadija, and together they helped talk to Dinsagi on my behalf. For a long time, Dinsagi didn't agree. But the hope remained, and we kept talking, building a bridge across my fears.</p>
+                            <div class="timeline-icon">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="var(--color-accent)"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline-item left scroll-reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">June 7, 2021</span>
+                            <h3>Our Official Beginning</h3>
+                            <p>The persistence and waiting finally blossomed. On this beautiful evening, she looked at me and agreed to be my girlfriend. It was, without a doubt, the happiest day of my life. A quiet declaration of love that launched a thousand beautiful memories.</p>
+                            <div class="timeline-img-container">
+                                <img src="assets/images/the day i was sick and she went home and came back to me.jpg" alt="Our Official Beginning" class="timeline-img">
+                            </div>
+                            <div class="timeline-icon">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="var(--color-gold)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Our Journey Section -->
+        <section id="journey" class="section-padding bg-darker">
+            <div class="container">
+                <div class="section-header text-center scroll-reveal">
+                    <span class="section-tag">Chapter II</span>
+                    <h2 class="section-title">Moments in the Sand</h2>
+                    <p class="section-subtitle">The chapters we wrote day by day</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="journey-grid">
+                    <!-- Chapter 1 -->
+                    <div class="journey-card scroll-reveal">
+                        <div class="journey-card-image">
+                            <!-- SVG Placeholder for WASSCE/Tea -->
+                            <div class="svg-placeholder-container">
+                                <svg viewBox="0 0 100 100" class="svg-placeholder">
+                                    <circle cx="50" cy="50" r="48" fill="#181818" stroke="var(--color-accent)" stroke-width="2"/>
+                                    <path d="M35 60 C35 70, 65 70, 65 60 L65 40 L35 40 Z" fill="none" stroke="var(--color-gold)" stroke-width="2"/>
+                                    <path d="M65 45 C72 45, 72 55, 65 55" fill="none" stroke="var(--color-gold)" stroke-width="2"/>
+                                    <path d="M40 35 Q45 25 42 20 M50 35 Q55 25 52 20 M60 35 Q65 25 62 20" fill="none" stroke="var(--color-accent)" stroke-dasharray="2 2" stroke-width="2"/>
+                                    <path d="M30 67 L70 67" stroke="var(--color-accent)" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <img src="assets/images/after our wassce.jpg" alt="The Tea & WASSCE Days" class="lazy-image">
+                        </div>
+                        <div class="journey-card-content">
+                            <span class="journey-date">Late 2021 - 2022</span>
+                            <h3>The Tea & WASSCE Days</h3>
+                            <p>When the high-stress period of WASSCE exams arrived, Dinsagi stayed near campus with her aunt. Because of this, we spent 99.9% of our time together. We were total lovebirds. She absolutely loved hot tea. We would sit together, prepare tea, sip slowly, and talk about everything. Those simple, quiet moments of study and shared tea remain some of my absolute warmest memories.</p>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 2 -->
+                    <div class="journey-card scroll-reveal">
+                        <div class="journey-card-image">
+                            <!-- SVG Placeholder for Tears of Joy -->
+                            <div class="svg-placeholder-container">
+                                <svg viewBox="0 0 100 100" class="svg-placeholder">
+                                    <circle cx="50" cy="50" r="48" fill="#181818" stroke="var(--color-gold)" stroke-width="2"/>
+                                    <path d="M35 50 Q50 65 65 50" fill="none" stroke="var(--color-accent)" stroke-width="3"/>
+                                    <path d="M38 42 C38 42, 42 38, 44 42" fill="none" stroke="#ffffff" stroke-width="2"/>
+                                    <path d="M62 42 C62 42, 58 38, 56 42" fill="none" stroke="#ffffff" stroke-width="2"/>
+                                    <path d="M35 48 Q33 58 35 60 M65 48 Q67 58 65 60" fill="none" stroke="#5bc0de" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <img src="assets/images/our.jpg" alt="Tears of Relieved Joy" class="lazy-image">
+                        </div>
+                        <div class="journey-card-content">
+                            <span class="journey-date">A Special Memory</span>
+                            <h3>Tears of Relieved Joy</h3>
+                            <p>I remember falling very ill while she was away visiting her parents. The moment she returned to campus and I laid eyes on her, tears spilled down my cheeks. It wasn't sadness—it was the pure, overwhelming joy of seeing her face again. I loved her with every single fiber of my being and couldn't bear to be apart from her for even minutes.</p>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 3 -->
+                    <div class="journey-card scroll-reveal">
+                        <div class="journey-card-image">
+                            <!-- SVG Placeholder for Apology/Heart -->
+                            <div class="svg-placeholder-container">
+                                <svg viewBox="0 0 100 100" class="svg-placeholder">
+                                    <circle cx="50" cy="50" r="48" fill="#181818" stroke="var(--color-gold)" stroke-width="2"/>
+                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="var(--color-accent)" stroke-width="2"/>
+                                    <path d="M35 65 L45 75 L65 50" fill="none" stroke="var(--color-gold)" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <img src="assets/images/the day she did her wassce clothing Modeling.jpg" alt="The Public Apology & Forever Promise" class="lazy-image">
+                        </div>
+                        <div class="journey-card-content">
+                            <span class="journey-date">The Day of Realization</span>
+                            <h3>The Public Apology & Forever Promise</h3>
+                            <p>One day, I asked Dinsagi when she first realized she loved me so deeply. She recalled a day when I had upset her, leading to a silent day and night. During that time, I fell ill and couldn't attend classes. Desperate to make things right, I sent our friend Black to beg for forgiveness, but she refused. Despite being weak and sick in bed, I got up, ran to campus, and knelt in public to apologize to her. That evening, she came to me, held me close, and confessed her deep love—wishing that I would be her first and last love until the end of her days.</p>
+                        </div>
+                    </div>
+
+                    <!-- Chapter 4 -->
+                    <div class="journey-card scroll-reveal">
+                        <div class="journey-card-image">
+                            <!-- SVG Placeholder for Distance/Divergent -->
+                            <div class="svg-placeholder-container">
+                                <svg viewBox="0 0 100 100" class="svg-placeholder">
+                                    <circle cx="50" cy="50" r="48" fill="#181818" stroke="var(--color-accent)" stroke-width="2"/>
+                                    <path d="M20 50 L40 50 M60 50 L80 50" stroke="#555" stroke-width="2" stroke-dasharray="4 4"/>
+                                    <path d="M50 20 L50 80" stroke="#555" stroke-width="2" stroke-dasharray="4 4"/>
+                                    <path d="M50 50 L25 25 M50 50 L75 75" stroke="var(--color-gold)" stroke-width="2"/>
+                                    <circle cx="25" cy="25" r="4" fill="var(--color-accent)"/>
+                                    <circle cx="75" cy="75" r="4" fill="var(--color-gold)"/>
+                                </svg>
+                            </div>
+                            <img src="assets/images/her pics.jpg" alt="The Miles Between Us" class="lazy-image">
+                        </div>
+                        <div class="journey-card-content">
+                            <span class="journey-date">2023 - 2024</span>
+                            <h3>The Miles Between Us</h3>
+                            <p>Life soon brought changes. Dinsagi went off to Nursing College at Gushiegu, while I had to focus on university and rewriting my exams. Distance became a heavy weight. We were both young, learning how to handle love and life. I didn't have money to spoil her or make her feel special in the ways I dreamed, which sat heavily on my heart. Slowly, the busy routines of nursing school created silent hours between us.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Beautiful Memories Gallery -->
+        <section id="gallery" class="section-padding bg-dark">
+            <div class="container">
+                <div class="section-header text-center scroll-reveal">
+                    <span class="section-tag">Gallery</span>
+                    <h2 class="section-title">Frames of Our Memories</h2>
+                    <p class="section-subtitle">Frozen moments from a beautiful chapter</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="gallery-masonry scroll-reveal">
+                    
+                    <!-- Gallery Item 1 -->
+                    <div class="gallery-item" data-index="1">
+                        <div class="gallery-img-container" style="aspect-ratio: 100/130;">
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 100 130" class="gallery-svg">
+                                    <rect width="100" height="130" fill="#151515"/>
+                                    <path d="M10 80 Q30 50 50 80 T90 80" fill="none" stroke="var(--color-accent)" stroke-width="1.5"/>
+                                    <circle cx="50" cy="40" r="15" fill="none" stroke="var(--color-gold)" stroke-width="1.5"/>
+                                    <text x="50" y="115" fill="#a0a0a0" font-size="6" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">My Favourite Picture</text>
+                                </svg>
+                            </div>
+                            <img src="assets/images/My favourite picture of her.jpg" alt="My Favourite Picture of Dinsagi" class="lazy-image">
+                            <div class="gallery-overlay">
+                                <h3>Captured Radiance</h3>
+                                <p>"My absolute favourite portrait of Dinsagi, glowing and full of light."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 2 -->
+                    <div class="gallery-item" data-index="2">
+                        <div class="gallery-img-container" style="aspect-ratio: 100/100;">
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 100 100" class="gallery-svg">
+                                    <rect width="100" height="100" fill="#151515"/>
+                                    <circle cx="50" cy="50" r="20" fill="none" stroke="var(--color-accent)" stroke-width="1.5"/>
+                                    <path d="M40 50 L60 50 M50 40 L50 60" stroke="var(--color-gold)" stroke-width="1.5"/>
+                                    <text x="50" y="90" fill="#a0a0a0" font-size="6" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">A Moment of Warmth</text>
+                                </svg>
+                            </div>
+                            <img src="assets/images/our.jpg" alt="A Moment of Warmth" class="lazy-image">
+                            <div class="gallery-overlay">
+                                <h3>A Moment of Warmth</h3>
+                                <p>"Just the two of us sharing a quiet smile together."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 3 -->
+                    <div class="gallery-item" data-index="3">
+                        <div class="gallery-img-container" style="aspect-ratio: 100/120;">
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 100 120" class="gallery-svg">
+                                    <rect width="100" height="120" fill="#151515"/>
+                                    <circle cx="50" cy="45" r="12" fill="none" stroke="var(--color-accent)" stroke-width="1.5"/>
+                                    <circle cx="50" cy="65" r="18" fill="none" stroke="var(--color-gold)" stroke-width="1.5"/>
+                                    <text x="50" y="110" fill="#a0a0a0" font-size="6" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">The Beginning</text>
+                                </svg>
+                            </div>
+                            <img src="assets/images/our picture.jpg" alt="The Beginning" class="lazy-image">
+                            <div class="gallery-overlay">
+                                <h3>The Beginning</h3>
+                                <p>"One of the first beautiful memories we captured of us."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 4 -->
+                    <div class="gallery-item" data-index="4">
+                        <div class="gallery-img-container" style="aspect-ratio: 100/140;">
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 100 140" class="gallery-svg">
+                                    <rect width="100" height="140" fill="#151515"/>
+                                    <path d="M30 40 L70 40 M30 80 L70 80 M50 30 L50 90" stroke="var(--color-accent)" stroke-width="1" stroke-dasharray="2 2"/>
+                                    <circle cx="50" cy="60" r="15" fill="none" stroke="var(--color-gold)" stroke-width="2"/>
+                                    <text x="50" y="125" fill="#a0a0a0" font-size="6" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">Side by Side</text>
+                                </svg>
+                            </div>
+                            <img src="assets/images/Her and me.jpg" alt="Side by Side" class="lazy-image">
+                            <div class="gallery-overlay">
+                                <h3>Side by Side</h3>
+                                <p>"Looking back at the moments where we were inseparable."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 5 -->
+                    <div class="gallery-item" data-index="5">
+                        <div class="gallery-img-container" style="aspect-ratio: 100/150;">
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 100 150" class="gallery-svg">
+                                    <rect width="100" height="150" fill="#151515"/>
+                                    <path d="M40 90 L60 90 M50 90 L50 60 Q35 45 50 30 Q65 45 50 60" fill="none" stroke="var(--color-gold)" stroke-width="1.5"/>
+                                    <text x="50" y="130" fill="#a0a0a0" font-size="6" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">A Caring Presence</text>
+                                </svg>
+                            </div>
+                            <img src="assets/images/the day i was sick and she went home and came back to me.jpg" alt="A Caring Presence" class="lazy-image">
+                            <div class="gallery-overlay">
+                                <h3>A Caring Presence</h3>
+                                <p>"The day she returned to campus to look after me when I fell sick."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 6 -->
+                    <div class="gallery-item" data-index="6">
+                        <div class="gallery-img-container" style="aspect-ratio: 100/110;">
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 100 110" class="gallery-svg">
+                                    <rect width="100" height="110" fill="#151515"/>
+                                    <circle cx="50" cy="50" r="10" fill="none" stroke="var(--color-accent)" stroke-width="1.5"/>
+                                    <text x="50" y="95" fill="#a0a0a0" font-size="6" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">Clothing Modeling</text>
+                                </svg>
+                            </div>
+                            <img src="assets/images/the day she did her wassce clothing Modeling.jpg" alt="WASSCE Clothing Modeling" class="lazy-image">
+                            <div class="gallery-overlay">
+                                <h3>Clothing Modeling</h3>
+                                <p>"Proudly modeling her own design practicals during WASSCE."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 7 -->
+                    <div class="gallery-item" data-index="7">
+                        <div class="gallery-img-container" style="aspect-ratio: 100/130;">
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 100 130" class="gallery-svg">
+                                    <rect width="100" height="130" fill="#151515"/>
+                                    <circle cx="50" cy="50" r="22" fill="none" stroke="var(--color-gold)" stroke-width="1"/>
+                                    <text x="50" y="115" fill="#a0a0a0" font-size="6" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">Practical Exams</text>
+                                </svg>
+                            </div>
+                            <img src="assets/images/the day she did her wassce clothing practicals.jpg" alt="Presec campus clothing practicals" class="lazy-image">
+                            <div class="gallery-overlay">
+                                <h3>Practical Exams</h3>
+                                <p>"Showcasing her creativity and talent at the Presec campus."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 8 -->
+                    <div class="gallery-item" data-index="8">
+                        <div class="gallery-img-container" style="aspect-ratio: 100/100;">
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 100 100" class="gallery-svg">
+                                    <rect width="100" height="100" fill="#151515"/>
+                                    <path d="M20 50 Q50 20 80 50 T50 80 Z" fill="none" stroke="var(--color-accent)" stroke-width="1.5"/>
+                                    <text x="50" y="90" fill="#a0a0a0" font-size="6" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">Post-Exam Joy</text>
+                                </svg>
+                            </div>
+                            <img src="assets/images/after our wassce.jpg" alt="after WASSCE exams" class="lazy-image">
+                            <div class="gallery-overlay">
+                                <h3>Post-Exam Joy</h3>
+                                <p>"Celebrating the end of the WASSCE papers, laughing under the campus trees."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 9 -->
+                    <div class="gallery-item" data-index="9">
+                        <div class="gallery-img-container" style="aspect-ratio: 100/120;">
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 100 120" class="gallery-svg">
+                                    <rect width="100" height="120" fill="#151515"/>
+                                    <path d="M20 60 L80 60" stroke="var(--color-accent)" stroke-width="1.5" stroke-dasharray="3 3"/>
+                                    <circle cx="50" cy="40" r="10" fill="none" stroke="var(--color-gold)" stroke-width="2"/>
+                                    <text x="50" y="105" fill="#a0a0a0" font-size="6" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">Day of Departure</text>
+                                </svg>
+                            </div>
+                            <img src="assets/images/the day we were departing after wassce.jpg" alt="departure day" class="lazy-image">
+                            <div class="gallery-overlay">
+                                <h3>The Day of Departure</h3>
+                                <p>"The bittersweet moment we parted ways after our exams."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 10 -->
+                    <div class="gallery-item" data-index="10">
+                        <div class="gallery-img-container" style="aspect-ratio: 100/140;">
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 100 140" class="gallery-svg">
+                                    <rect width="100" height="140" fill="#151515"/>
+                                    <path d="M50 30 Q30 60 50 90 Q70 60 50 30" fill="none" stroke="var(--color-accent)" stroke-width="1.5"/>
+                                    <text x="50" y="120" fill="#a0a0a0" font-size="6" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">Friends & Us</text>
+                                </svg>
+                            </div>
+                            <img src="assets/images/Fauzia, Khadija, Her and me.jpg" alt="Friends and us" class="lazy-image">
+                            <div class="gallery-overlay">
+                                <h3>Friends & Us</h3>
+                                <p>"A memorable campus photo with Fauzia, Khadija, and the two of us."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 11 -->
+                    <div class="gallery-item" data-index="11">
+                        <div class="gallery-img-container" style="aspect-ratio: 100/110;">
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 100 110" class="gallery-svg">
+                                    <rect width="100" height="110" fill="#151515"/>
+                                    <circle cx="30" cy="50" r="8" fill="none" stroke="var(--color-accent)" stroke-width="1"/>
+                                    <circle cx="50" cy="50" r="10" fill="none" stroke="var(--color-gold)" stroke-width="1"/>
+                                    <circle cx="70" cy="50" r="8" fill="none" stroke="var(--color-accent)" stroke-width="1"/>
+                                    <text x="50" y="95" fill="#a0a0a0" font-size="6" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">The Presec Circle</text>
+                                </svg>
+                            </div>
+                            <img src="assets/images/Her, Fauzia and Khadijah.jpg" alt="Dinsagi, Fauzia and Khadijah" class="lazy-image">
+                            <div class="gallery-overlay">
+                                <h3>The Presec Circle</h3>
+                                <p>"Dinsagi with her close friends Fauzia and Khadijah back at campus."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 12 -->
+                    <div class="gallery-item" data-index="12">
+                        <div class="gallery-img-container" style="aspect-ratio: 100/130;">
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 100 130" class="gallery-svg">
+                                    <rect width="100" height="130" fill="#151515"/>
+                                    <path d="M50 20 L50 80 M30 50 L70 50" stroke="var(--color-gold)" stroke-width="1" stroke-dasharray="2 2"/>
+                                    <circle cx="50" cy="50" r="20" fill="none" stroke="var(--color-accent)" stroke-width="2"/>
+                                    <text x="50" y="115" fill="#a0a0a0" font-size="6" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">Simply Beautiful</text>
+                                </svg>
+                            </div>
+                            <img src="assets/images/her pics.jpg" alt="elegant Dinsagi portrait" class="lazy-image">
+                            <div class="gallery-overlay">
+                                <h3>Simply Beautiful</h3>
+                                <p>"A beautiful portrait capturing her gentle elegance."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 13 -->
+                    <div class="gallery-item" data-index="13">
+                        <div class="gallery-img-container" style="aspect-ratio: 100/120;">
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 100 120" class="gallery-svg">
+                                    <rect width="100" height="120" fill="#151515"/>
+                                    <rect x="25" y="25" width="50" height="50" fill="none" stroke="var(--color-accent)" stroke-width="1"/>
+                                    <text x="50" y="105" fill="#a0a0a0" font-size="6" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">September 2021</text>
+                                </svg>
+                            </div>
+                            <img src="assets/images/IMG_20210920_120000.jpg" alt="Campus record Sept 2021" class="lazy-image">
+                            <div class="gallery-overlay">
+                                <h3>September 2021</h3>
+                                <p>"A beautiful memory captured early in our relationship."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 14 -->
+                    <div class="gallery-item" data-index="14">
+                        <div class="gallery-img-container" style="aspect-ratio: 100/140;">
+                            <div class="gallery-placeholder">
+                                <svg viewBox="0 0 100 140" class="gallery-svg">
+                                    <rect width="100" height="140" fill="#151515"/>
+                                    <path d="M10 80 Q30 50 50 80 T90 80" fill="none" stroke="var(--color-accent)" stroke-width="1.5"/>
+                                    <circle cx="50" cy="40" r="15" fill="none" stroke="var(--color-gold)" stroke-width="1.5"/>
+                                    <text x="50" y="125" fill="#a0a0a0" font-size="6" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">Pure Reflection</text>
+                                </svg>
+                            </div>
+                            <img src="assets/images/1671136399713.jpg" alt="twinkle reflection portrait" class="lazy-image">
+                            <div class="gallery-overlay">
+                                <h3>Pure Reflection</h3>
+                                <p>"A sweet fragment of time preserved forever in our hearts."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Video Memories Section -->
+        <section id="videos" class="section-padding bg-darker">
+            <div class="container">
+                <div class="section-header text-center scroll-reveal">
+                    <span class="section-tag">Videos</span>
+                    <h2 class="section-title">Moments I Wish I Could Replay</h2>
+                    <p class="section-subtitle">Flickers of movement from the days we shared</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="video-grid scroll-reveal">
+                    <!-- Video Card 1 -->
+                    <div class="video-card">
+                        <div class="video-wrapper">
+                            <video id="memoryVideo1" preload="metadata" loop muted playsinline>
+                                <source src="assets/videos/we walking holding hands.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-custom-overlay" id="videoOverlay1">
+                                <button class="play-btn" onclick="togglePlay('memoryVideo1', 'videoOverlay1')" aria-label="Play video">
+                                    <svg viewBox="0 0 24 24" width="36" height="36" fill="#fff">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h3>Walking Hand in Hand</h3>
+                            <p>Short moments of walking holding hands, feeling like the world belongs to us.</p>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 2 -->
+                    <div class="video-card">
+                        <div class="video-wrapper">
+                            <video id="memoryVideo2" preload="metadata" loop muted playsinline>
+                                <source src="assets/videos/as we use to walk together and i accompany them.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-custom-overlay" id="videoOverlay2">
+                                <button class="play-btn" onclick="togglePlay('memoryVideo2', 'videoOverlay2')" aria-label="Play video">
+                                    <svg viewBox="0 0 24 24" width="36" height="36" fill="#fff">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h3>Accompanying Her</h3>
+                            <p>Moments of walking together as I accompany her and her friends back home.</p>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 3 -->
+                    <div class="video-card">
+                        <div class="video-wrapper">
+                            <video id="memoryVideo3" preload="metadata" loop muted playsinline>
+                                <source src="assets/videos/Holding hands.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-custom-overlay" id="videoOverlay3">
+                                <button class="play-btn" onclick="togglePlay('memoryVideo3', 'videoOverlay3')" aria-label="Play video">
+                                    <svg viewBox="0 0 24 24" width="36" height="36" fill="#fff">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h3>Holding On</h3>
+                            <p>A gentle record of holding hands, a silent promise of connection.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Love Letter Section -->
+        <section id="letter" class="section-padding bg-dark letter-section">
+            <div class="container narrow-container">
+                <div class="section-header text-center scroll-reveal">
+                    <span class="section-tag">Unsent</span>
+                    <h2 class="section-title">A Letter to Dinsagi</h2>
+                    <p class="section-subtitle">Words kept in the corners of my mind</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="letter-paper-wrapper scroll-reveal">
+                    <div class="letter-paper">
+                        <div class="letter-lines"></div>
+                        <div class="letter-content-text typewriter-target" id="loveLetterText">
+                            <!-- JS will inject the typewriter text here dynamically when in view -->
+                        </div>
+                    </div>
+                    <!-- Fallback content for SEO or disabled JS -->
+                    <noscript>
+                        <div class="letter-content-text">
+                            <p class="letter-salutation">To Dinsagi,</p>
+                            <p>There are chapters in our lives that we write with permanent ink, and ours is one of them. Looking back at the classrooms in Tamale, the quiet moments sharing tea while the world rushed around us, and the times we couldn't stand to be apart for even a second, I realize how deeply you shaped my world. I loved you with every fiber of my being.</p>
+                            <p>Although our paths have diverged, and the silence has taken the place of our conversations, none of that dims the light of what we shared. I write this not to hold on, but to honor what was. If I had the choice, in another life, I would still choose you.</p>
+                            <p class="letter-closing">With respect and warmth,</p>
+                            <p class="letter-signature">Always ❤️</p>
+                        </div>
+                    </noscript>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. The Chapter Where We Changed -->
+        <section id="changed" class="section-padding bg-darker">
+            <div class="container">
+                <div class="section-header text-center scroll-reveal">
+                    <span class="section-tag">Chapter III</span>
+                    <h2 class="section-title">Where the Ink Faded</h2>
+                    <p class="section-subtitle">A mature reflection on how we changed</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="changed-split scroll-reveal">
+                    <div class="changed-visual">
+                        <div class="path-split-animation">
+                            <div class="path-line original"></div>
+                            <div class="path-line split-left"></div>
+                            <div class="path-line split-right"></div>
+                            <div class="glowing-node initial-node"></div>
+                            <div class="glowing-node node-left"></div>
+                            <div class="glowing-node node-right"></div>
+                        </div>
+                    </div>
+                    <div class="changed-narrative">
+                        <h3>Divergent Horizons</h3>
+                        <p>After completing nursing college, Dinsagi returned to pursue fashion design, while my university studies and rewriting exams placed heavy responsibilities on me. One day, her phone broke. I wished with everything in me that I had the money to replace it, to make her feel secure and special, but I simply did not. That financial helplessness felt like a mountain between us.</p>
+                        <p>Soon, the conversation felt different. When I traveled all the way to Tamale during vacation just to see her, she was constantly busy, and the distance felt cold. Learning through rumors that she had a new phone from someone else, and confronting the wall of silence, hurt deeply. The final realization came when a mutual friend revealed that religious differences and the pressure of me not being a Muslim played a silent, heavy role in her withdrawal. I chose to step away, officially ending our relationship on May 3, 2026—not because the love had died, but because the respect had to survive.</p>
+                        <blockquote class="cinematic-quote">
+                            "Some stories must end so that both writers can keep moving forward."
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Lessons From Our Story -->
+        <section id="lessons" class="section-padding bg-dark">
+            <div class="container">
+                <div class="section-header text-center scroll-reveal">
+                    <span class="section-tag">Growth</span>
+                    <h2 class="section-title">Lessons From Our Story</h2>
+                    <p class="section-subtitle">What love left behind when it departed</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="lessons-grid">
+                    <!-- Lesson 1 -->
+                    <div class="lesson-card scroll-reveal">
+                        <div class="lesson-num">01</div>
+                        <h3>Acceptance Without Blame</h3>
+                        <p>Love taught me that the people we love most are not guaranteed to stay in our lives forever. Holding on with anger only ruins the beauty of what was. Accepting their departure without blame is the ultimate maturity.</p>
+                    </div>
+
+                    <!-- Lesson 2 -->
+                    <div class="lesson-card scroll-reveal">
+                        <div class="lesson-num">02</div>
+                        <h3>The Value of Self-Respect</h3>
+                        <p>Even when you love someone with every fiber of your being, you must have the courage to walk away when the communication, transparency, and basic respect fade. Love cannot survive on memory alone.</p>
+                    </div>
+
+                    <!-- Lesson 3 -->
+                    <div class="lesson-card scroll-reveal">
+                        <div class="lesson-num">03</div>
+                        <h3>Precious Stillness</h3>
+                        <p>I learned that the most valuable parts of a relationship are not the grand statements or the money, but the quiet, simple routines—like sharing tea in a crowded room, or crying tears of joy just seeing a face walk through a door.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Final Goodbye Section -->
+        <section id="goodbye" class="goodbye-section">
+            <div class="goodbye-overlay"></div>
+            <div class="goodbye-content">
+                <span class="goodbye-heart scroll-reveal">❤️</span>
+                <h2 class="goodbye-heading scroll-reveal">Thank you for being part of my story.</h2>
+                <p class="goodbye-text scroll-reveal">"I would still choose you in another life, Dinsagi. Go well, be happy, and write a beautiful life."</p>
+                <span class="goodbye-sub scroll-reveal">May 15, 2021 — June 7, 2021 — May 3, 2026</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Photo Lightbox Modal -->
+    <div id="lightbox" class="lightbox-modal" aria-hidden="true">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <button class="lightbox-arrow prev" id="lightboxPrev" aria-label="Previous image">&#10094;</button>
+        <div class="lightbox-content-wrapper">
+            <img class="lightbox-img" id="lightboxImg" src="" alt="">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+        <button class="lightbox-arrow next" id="lightboxNext" aria-label="Next image">&#10095;</button>
+    </div>
+
+    <!-- Custom Footer -->
+    <footer class="footer">
+        <p>&copy; 2026. The Story We Once Wrote. Crafted with respect, reflection, and love.</p>
+    </footer>
+
+    <!-- Custom Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
