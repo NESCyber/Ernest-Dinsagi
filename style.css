@@ -1575,3 +1575,272 @@ body {
         right: 20px;
     }
 }
+
+/* -------------------------------------------------------------
+   NEW INTERACTIVE FEATURES
+   ------------------------------------------------------------- */
+
+/* Floating Heart Click Effect */
+.floating-heart {
+    position: absolute;
+    font-size: 1.5rem;
+    pointer-events: none;
+    z-index: 9999;
+    animation: floatHeart 1.2s ease-out forwards;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(calc(-50% + var(--tx)), -150px) scale(1.2) rotate(var(--rot));
+        opacity: 0;
+    }
+}
+
+/* Audio Controls Extensions (Visualizer) */
+.audio-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.music-visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 18px;
+    width: 25px;
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.audio-controls.playing .music-visualizer {
+    opacity: 1;
+}
+
+.music-visualizer .bar {
+    width: 3px;
+    height: 100%;
+    background-color: var(--color-accent);
+    border-radius: 2px;
+    transform-origin: bottom;
+    animation: bounceBar 1.2s ease-in-out infinite alternate;
+    animation-play-state: paused;
+}
+
+.audio-controls.playing .music-visualizer .bar {
+    animation-play-state: running;
+}
+
+.music-visualizer .bar:nth-child(1) { animation-duration: 0.8s; }
+.music-visualizer .bar:nth-child(2) { animation-duration: 1.1s; animation-delay: -0.3s; }
+.music-visualizer .bar:nth-child(3) { animation-duration: 0.9s; animation-delay: -0.15s; }
+.music-visualizer .bar:nth-child(4) { animation-duration: 1.2s; animation-delay: -0.6s; }
+
+@keyframes bounceBar {
+    0% { transform: scaleY(0.2); }
+    100% { transform: scaleY(1); }
+}
+
+/* Time Span Counter Styles */
+.time-counter-container {
+    background: rgba(24, 24, 24, 0.45);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 25px 30px;
+    max-width: 450px;
+    margin: -10px auto 45px auto;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.time-counter-header {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-accent);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.time-counter-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.time-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 65px;
+}
+
+.time-unit .number {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    color: var(--color-gold);
+    line-height: 1.1;
+}
+
+.time-unit .label {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+
+.time-divider {
+    font-size: 1.8rem;
+    color: var(--color-border);
+    margin-bottom: 12px;
+}
+
+.time-counter-footer {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-top: 10px;
+}
+
+/* Secret Anniversary Lock Box */
+.secret-lock-container {
+    background: rgba(24, 24, 24, 0.45);
+    border: 1px dashed var(--color-border);
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 500px;
+    margin: 40px auto 0 auto;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.secret-lock-header h3 {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    color: var(--color-text-main);
+    margin: 10px 0 5px 0;
+}
+
+.secret-lock-header p {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 20px;
+}
+
+.secret-lock-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.secret-lock-inputs input {
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    padding: 10px 15px;
+    color: var(--color-text-main);
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-align: center;
+    width: 150px;
+    font-family: var(--font-sans);
+}
+
+.secret-lock-inputs button {
+    background: var(--color-accent);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    color: var(--color-bg);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-family: var(--font-sans);
+}
+
+.secret-lock-inputs button:hover {
+    background: var(--color-accent-light);
+    box-shadow: 0 0 10px rgba(255, 141, 161, 0.4);
+}
+
+.lock-message {
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    min-height: 20px;
+}
+
+.lock-message.error {
+    color: #ff5e7e;
+}
+
+.lock-message.success {
+    color: #4cd964;
+}
+
+.hidden-memory-card {
+    margin-top: 25px;
+    animation: revealCard 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.hidden-memory-card.hidden {
+    display: none !important;
+}
+
+@keyframes revealCard {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.secret-card-inner {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-gold);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.secret-card-image {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+}
+
+.secret-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.secret-card-content {
+    padding: 20px;
+    text-align: left;
+}
+
+.secret-card-content h3 {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    color: var(--color-gold);
+    margin-bottom: 10px;
+}
+
+.secret-card-content p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}

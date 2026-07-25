@@ -482,6 +482,129 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'ArrowLeft') showPrevImage();
         }
     });
+
+    // ==========================================
+    // 10. INTERACTIVE CLICK HEARTS EFFECT
+    // ==========================================
+    document.addEventListener('click', (e) => {
+        // Prevent heart spawns on buttons, links, or visualizer bars to avoid visual overlap
+        if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.closest('button') || e.target.closest('a') || e.target.closest('input')) {
+            return;
+        }
+
+        const heart = document.createElement('span');
+        heart.classList.add('floating-heart');
+        heart.innerHTML = '❤️';
+        
+        // Random horizontal travel and rotation
+        const tx = (Math.random() * 80 - 40) + 'px';
+        const rot = (Math.random() * 60 - 30) + 'deg';
+        heart.style.setProperty('--tx', tx);
+        heart.style.setProperty('--rot', rot);
+        
+        // Position at cursor
+        heart.style.left = e.pageX + 'px';
+        heart.style.top = e.pageY + 'px';
+        
+        document.body.appendChild(heart);
+        
+        // Delete after animation completes
+        setTimeout(() => {
+            heart.remove();
+        }, 1200);
+    });
+
+    // ==========================================
+    // 11. TIMELINE TIME SPAN COUNTER (Animate count-up)
+    // ==========================================
+    function animateCounter(elementId, targetValue, duration = 2000) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+        
+        const startTime = performance.now();
+        
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease out cubic
+            const easeProgress = 1 - Math.pow(1 - progress, 3);
+            
+            const currentValue = Math.floor(easeProgress * targetValue);
+            element.textContent = currentValue.toLocaleString();
+            
+            if (progress < 1) {
+                requestAnimationFrame(update);
+            } else {
+                element.textContent = targetValue.toLocaleString();
+            }
+        }
+        
+        requestAnimationFrame(update);
+    }
+
+    const beginningSection = document.getElementById('beginning');
+    let counterStarted = false;
+    
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !counterStarted) {
+                counterStarted = true;
+                
+                // Calculate date difference dynamically: 15 May 2021 to 3 May 2026
+                const startDate = new Date('2021-05-15T08:00:00');
+                const endDate = new Date('2026-05-03T12:00:00');
+                const diffMs = endDate - startDate;
+                
+                const targetDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                const targetHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const targetMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                
+                animateCounter('spanDays', targetDays, 2200);
+                animateCounter('spanHours', targetHours, 1800);
+                animateCounter('spanMinutes', targetMinutes, 1500);
+                
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    if (beginningSection) counterObserver.observe(beginningSection);
+
+    // ==========================================
+    // 12. ANNIVERSARY VAULT LOCK BOX
+    // ==========================================
+    const lockInput = document.getElementById('lockInput');
+    const lockSubmitBtn = document.getElementById('lockSubmitBtn');
+    const lockMessage = document.getElementById('lockMessage');
+    const hiddenMemoryCard = document.getElementById('hiddenMemoryCard');
+    const vaultLockIcon = document.getElementById('vaultLockIcon');
+    
+    if (lockSubmitBtn && lockInput) {
+        function checkVaultCode() {
+            const code = lockInput.value.trim();
+            // Code represents official beginning date: 07-06-2021 (07062021)
+            if (code === '07062021') {
+                lockMessage.textContent = 'Decryption successful. Vault unlocked ❤️';
+                lockMessage.className = 'lock-message success';
+                vaultLockIcon.textContent = '🔓';
+                hiddenMemoryCard.classList.remove('hidden');
+                
+                // Lock elements
+                lockInput.disabled = true;
+                lockSubmitBtn.disabled = true;
+            } else {
+                lockMessage.textContent = 'Incorrect date. Reflect on the beginning milestone...';
+                lockMessage.className = 'lock-message error';
+                lockInput.value = '';
+                lockInput.focus();
+            }
+        }
+        
+        lockSubmitBtn.addEventListener('click', checkVaultCode);
+        lockInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') checkVaultCode();
+        });
+    }
 });
 
 // ==========================================

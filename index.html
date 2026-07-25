@@ -34,6 +34,12 @@
 
     <!-- Background Music & Controls -->
     <div class="audio-controls" id="audioContainer">
+        <div class="music-visualizer" id="musicVisualizer">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
         <button id="musicToggle" class="music-toggle" aria-label="Toggle music">
             <svg class="music-icon icon-play" viewBox="0 0 24 24" width="24" height="24">
                 <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" fill="currentColor"/>
@@ -103,6 +109,28 @@
                 </div>
 
                 <div class="timeline-container">
+                    <!-- Time Journey Counter -->
+                    <div class="time-counter-container scroll-reveal">
+                        <div class="time-counter-header">Our Story Span</div>
+                        <div class="time-counter-grid">
+                            <div class="time-unit">
+                                <span class="number" id="spanDays">0</span>
+                                <span class="label">Days</span>
+                            </div>
+                            <div class="time-divider">:</div>
+                            <div class="time-unit">
+                                <span class="number" id="spanHours">0</span>
+                                <span class="label">Hours</span>
+                            </div>
+                            <div class="time-divider">:</div>
+                            <div class="time-unit">
+                                <span class="number" id="spanMinutes">0</span>
+                                <span class="label">Minutes</span>
+                            </div>
+                        </div>
+                        <div class="time-counter-footer">May 15, 2021 — May 3, 2026</div>
+                    </div>
+
                     <div class="timeline-track"></div>
                     
                     <!-- Timeline Item 1 -->
@@ -667,6 +695,33 @@
                         <blockquote class="cinematic-quote">
                             "Some stories must end so that both writers can keep moving forward."
                         </blockquote>
+                    </div>
+                </div>
+
+                <!-- Secret Date Lock Box -->
+                <div class="secret-lock-container scroll-reveal">
+                    <div class="secret-lock-header">
+                        <span class="lock-icon" id="vaultLockIcon">🔒</span>
+                        <h3>Secret Vault of Memories</h3>
+                        <p>Enter our official anniversary date (DDMMYYYY) to unlock a hidden memory card</p>
+                    </div>
+                    <div class="secret-lock-inputs">
+                        <input type="text" id="lockInput" placeholder="e.g. 07062021" maxlength="8">
+                        <button id="lockSubmitBtn">Unlock</button>
+                    </div>
+                    <div id="lockMessage" class="lock-message"></div>
+                    
+                    <!-- Hidden Memory Card (Initially hidden) -->
+                    <div id="hiddenMemoryCard" class="hidden-memory-card hidden">
+                        <div class="secret-card-inner">
+                            <div class="secret-card-image">
+                                <img src="assets/images/our.jpg" alt="Our Official Beginning" id="secretImg">
+                            </div>
+                            <div class="secret-card-content">
+                                <h3>Our Official Beginning</h3>
+                                <p>On this day, June 7, 2021, Dinsagi agreed to be my girlfriend. It remains the happiest day of my life, a day built on patience, laughter, and the beginning of a beautiful chapter.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
