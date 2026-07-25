@@ -134,6 +134,43 @@ document.addEventListener('DOMContentLoaded', () => {
     initParticles();
     window.addEventListener('resize', initParticles);
 
+    function connectParticles() {
+        for (let a = 0; a < particlesArray.length; a++) {
+            for (let b = a + 1; b < particlesArray.length; b++) {
+                let dx = particlesArray[a].x - particlesArray[b].x;
+                let dy = particlesArray[a].y - particlesArray[b].y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < 100) {
+                    ctx.beginPath();
+                    ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                    ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                    // Fade line color based on distance
+                    const opacity = (1 - (dist / 100)) * 0.15;
+                    ctx.strokeStyle = `rgba(212, 175, 55, ${opacity})`; // Faint gold lines
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+            
+            // Connect to mouse
+            if (mouse.x !== null && mouse.y !== null) {
+                let dx = particlesArray[a].x - mouse.x;
+                let dy = particlesArray[a].y - mouse.y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 130) {
+                    ctx.beginPath();
+                    ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    const opacity = (1 - (dist / 130)) * 0.22;
+                    ctx.strokeStyle = `rgba(255, 141, 161, ${opacity})`; // Pink glow connection to mouse
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
     // Animation Loop
     function animateParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -141,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
             particlesArray[i].update();
             particlesArray[i].draw();
         }
+        connectParticles();
         requestAnimationFrame(animateParticles);
     }
     animateParticles();
@@ -686,6 +724,152 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ==========================================
+    // 15. SCROLL PROGRESS HEART INDICATOR
+    // ==========================================
+    const scrollHeart = document.getElementById('scrollHeart');
+    if (scrollHeart) {
+        window.addEventListener('scroll', () => {
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            if (totalHeight <= 0) return;
+            const scrollPercent = window.scrollY / totalHeight;
+            // Place the heart on the vertical bar path (0% to 100% top positioning)
+            scrollHeart.style.top = (scrollPercent * 100) + '%';
+        });
+    }
+
+    // ==========================================
+    // 16. MOBILE SWIPE GESTURES FOR GALLERY LIGHTBOX
+    // ==========================================
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    if (lightbox) {
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+        
+        lightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].clientX;
+            handleLightboxSwipe();
+        }, { passive: true });
+    }
+    
+    function handleLightboxSwipe() {
+        const threshold = 50; // swipe minimum pixels
+        const swipeDistance = touchEndX - touchStartX;
+        
+        if (lightbox.getAttribute('aria-hidden') === 'false') {
+            if (swipeDistance < -threshold) {
+                // Swiped Left -> Show next image
+                showNextImage();
+            } else if (swipeDistance > threshold) {
+                // Swiped Right -> Show previous image
+                showPrevImage();
+            }
+        }
+    }
+
+    // ==========================================
+    // 17. AUDIO LYRIC SYNCHRONIZATION
+    // ==========================================
+    const lyricsBar = document.getElementById('lyricsBar');
+    const lyricText = document.getElementById('lyricText');
+    
+    const lyricsTimeline = [
+        { time: 0, text: "🎵 I Need You - Reynard Silva" },
+        { time: 4, text: "I remember the day we met back in Presec Tamale..." },
+        { time: 11, text: "Sitting in those classrooms, stealing looks at you..." },
+        { time: 17, text: "Sharing tea on warm afternoons..." },
+        { time: 24, text: "You were the center of my universe..." },
+        { time: 30, text: "I loved you with every fiber of my being..." },
+        { time: 37, text: "Even when things got tough and silence grew..." },
+        { time: 44, text: "And the distance between us sat heavily..." },
+        { time: 51, text: "I still carried the hope that we'd stay..." },
+        { time: 58, text: "Now the chapters have changed..." },
+        { time: 64, text: "But I wish you the happiest life, Dinsagi..." },
+        { time: 70, text: "You will always hold a piece of my heart ❤️" }
+    ];
+
+    if (bgMusic && lyricsBar && lyricText) {
+        bgMusic.addEventListener('timeupdate', () => {
+            if (bgMusic.paused) return;
+            
+            const currentTime = bgMusic.currentTime;
+            
+            // Find active lyric
+            let activeLyric = lyricsTimeline[0];
+            for (let i = 0; i < lyricsTimeline.length; i++) {
+                if (currentTime >= lyricsTimeline[i].time) {
+                    activeLyric = lyricsTimeline[i];
+                }
+            }
+            
+            if (lyricText.textContent !== activeLyric.text) {
+                lyricText.style.opacity = '0';
+                setTimeout(() => {
+                    lyricText.textContent = activeLyric.text;
+                    lyricText.style.opacity = '1';
+                }, 200);
+            }
+        });
+        
+        // Sync lyrics bar visibility with playing state
+        bgMusic.addEventListener('play', () => {
+            lyricsBar.classList.remove('hidden');
+        });
+        
+        bgMusic.addEventListener('pause', () => {
+            lyricsBar.classList.add('hidden');
+        });
+        
+        bgMusic.addEventListener('ended', () => {
+            lyricsBar.classList.add('hidden');
+        });
+    }
+
+    // ==========================================
+    // 18. MESSAGE IN A BOTTLE MODAL & Parchment Quotes
+    // ==========================================
+    const bottleBtn = document.getElementById('bottleBtn');
+    const bottleModal = document.getElementById('bottleModal');
+    const closeBottleBtn = document.getElementById('closeBottleBtn');
+    const bottleMessageText = document.getElementById('bottleMessageText');
+    
+    const bottleMessages = [
+        "Some chapters are meant to be beautiful memories, not the final destination. Cherish the time shared, and keep moving forward.",
+        "Healing isn't about forgetting the love; it's about remembering it without pain. Be patient with your heart.",
+        "Diverging paths do not erase the steps taken side-by-side. The growth we achieved together remains ours forever.",
+        "Every memory is a star in the night sky. Faint, distant, yet beautiful in its reflection of where we once stood.",
+        "Letting go is the final form of love. It is wishing someone well, even when their path no longer crosses yours.",
+        "The shared tea on hot afternoons and the public campus apologies were real. They shaped the version of you that exists today.",
+        "Respect the past, honor the growth, and welcome the horizons that are waiting for you."
+    ];
+
+    if (bottleBtn && bottleModal && closeBottleBtn && bottleMessageText) {
+        bottleBtn.addEventListener('click', () => {
+            // Pick a random message
+            const randomIndex = Math.floor(Math.random() * bottleMessages.length);
+            bottleMessageText.textContent = bottleMessages[randomIndex];
+            
+            // Show modal
+            bottleModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Lock background scrolling
+        });
+        
+        function closeBottle() {
+            bottleModal.classList.add('hidden');
+            document.body.style.overflow = ''; // Unlock scroll
+        }
+        
+        closeBottleBtn.addEventListener('click', closeBottle);
+        bottleModal.addEventListener('click', (e) => {
+            if (e.target === bottleModal) {
+                closeBottle();
+            }
+        });
+    }
 });
 
 // ==========================================

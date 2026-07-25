@@ -851,6 +851,39 @@
         <p>&copy; 2026. The Story We Once Wrote. Crafted with respect, reflection, and love.</p>
     </footer>
 
+    <!-- Scroll Progress Heart Indicator -->
+    <div class="scroll-heart-container">
+        <div class="scroll-heart-line"></div>
+        <div class="scroll-heart-icon" id="scrollHeart">❤️</div>
+    </div>
+
+    <!-- Floating Lyrics Bar -->
+    <div id="lyricsBar" class="lyrics-bar hidden">
+        <div class="lyrics-inner">
+            <span class="music-icon">🎵</span>
+            <span id="lyricText">I Need You - Reynard Silva</span>
+        </div>
+    </div>
+
+    <!-- Message in a Bottle Float Button -->
+    <button id="bottleBtn" class="bottle-float-btn" aria-label="Open message in a bottle">
+        🍾
+    </button>
+
+    <!-- Message in a Bottle Modal -->
+    <div id="bottleModal" class="bottle-modal hidden">
+        <div class="bottle-modal-content">
+            <span class="bottle-close-btn" id="closeBottleBtn">&times;</span>
+            <div class="parchment-scroll">
+                <div class="scroll-roll-top"></div>
+                <div class="scroll-body">
+                    <p id="bottleMessageText">Loading secret memory scroll...</p>
+                </div>
+                <div class="scroll-roll-bottom"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- Custom Scripts -->
     <script src="script.js"></script>
 </body>
