@@ -276,18 +276,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let letterStarted = false;
 
-    // Observer to start typing when letter is visible
-    const letterObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !letterStarted) {
-                letterStarted = true;
-                startTypewriter();
-                observer.unobserve(entry.target);
+    // Envelope wrapper listener instead of screen observer
+    const envelopeWrapper = document.getElementById('envelopeWrapper');
+    if (envelopeWrapper) {
+        envelopeWrapper.addEventListener('click', () => {
+            if (!envelopeWrapper.classList.contains('open')) {
+                envelopeWrapper.classList.add('open');
+                
+                if (!letterStarted) {
+                    letterStarted = true;
+                    // Wait for sliding animation to complete (800ms) before starting the typing
+                    setTimeout(() => {
+                        startTypewriter();
+                    }, 800);
+                }
             }
         });
-    }, { threshold: 0.3 });
-
-    letterObserver.observe(letterSection);
+    }
 
     function startTypewriter() {
         loveLetterContainer.innerHTML = '';
@@ -605,6 +610,82 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'Enter') checkVaultCode();
         });
     }
+
+    // ==========================================
+    // 13. SPARKLE CURSOR TRAIL
+    // ==========================================
+    let lastTrailTime = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+        const now = Date.now();
+        if (now - lastTrailTime < 50) return; // Throttle to 50ms
+        lastTrailTime = now;
+        
+        createSparkle(e.pageX, e.pageY);
+    });
+
+    document.addEventListener('touchmove', (e) => {
+        const now = Date.now();
+        if (now - lastTrailTime < 50) return;
+        lastTrailTime = now;
+        
+        const touch = e.touches[0];
+        createSparkle(touch.pageX, touch.pageY);
+    });
+
+    function createSparkle(x, y) {
+        const particle = document.createElement('span');
+        particle.classList.add('sparkle-trail');
+        // Randomly pick a star or heart
+        particle.innerHTML = Math.random() > 0.6 ? '✨' : '❤️';
+        
+        // Random style details
+        const size = (Math.random() * 12 + 6) + 'px';
+        particle.style.fontSize = size;
+        particle.style.position = 'absolute';
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '9998';
+        
+        // Random animation offsets
+        const tx = (Math.random() * 40 - 20) + 'px';
+        const ty = (Math.random() * 40 - 60) + 'px'; // Float upwards
+        particle.style.setProperty('--tx', tx);
+        particle.style.setProperty('--ty', ty);
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => {
+            particle.remove();
+        }, 800);
+    }
+
+    // ==========================================
+    // 14. SHARED ECHOES ACCORDION
+    // ==========================================
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            const content = header.nextElementSibling;
+            
+            // Toggle current item
+            const isActive = item.classList.contains('active');
+            
+            // Close all items
+            document.querySelectorAll('.accordion-item').forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('.accordion-content').style.maxHeight = null;
+            });
+            
+            if (!isActive) {
+                item.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        });
+    });
 });
 
 // ==========================================

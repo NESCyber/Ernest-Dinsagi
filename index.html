@@ -636,34 +636,94 @@
             </div>
         </section>
 
+        <!-- 5.5 Shared Echoes Section (Q&A Accordion) -->
+        <section id="echoes" class="section-padding bg-darker">
+            <div class="container narrow-container">
+                <div class="section-header text-center scroll-reveal">
+                    <span class="section-tag">Echoes</span>
+                    <h2 class="section-title">Shared Echoes</h2>
+                    <p class="section-subtitle">Click the questions to reveal details of our shared history</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="accordion scroll-reveal">
+                    <!-- Q1 -->
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span>How did we first cross paths?</span>
+                            <span class="accordion-icon">+</span>
+                        </button>
+                        <div class="accordion-content">
+                            <p>We met at extra classes organized by one of our masters back in Presec Tamale around May 15, 2021. My friend "Black" and I arrived early and sat inside. She walked in with her friends Fauzia and Khadija, and my heart stopped. That night, sleep refused to find me.</p>
+                        </div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span>What is the story behind the shared tea?</span>
+                            <span class="accordion-icon">+</span>
+                        </button>
+                        <div class="accordion-content">
+                            <p>During our WASSCE exams preparation, Dinsagi stayed near campus with her aunt. Because of this, we spent 99.9% of our time together. Dinsagi was a huge tea lover—we prepared hot tea, shared it under the campus shade, and talked about everything. Those simple, quiet moments of study and shared tea remain some of my absolute warmest memories.</p>
+                        </div>
+                    </div>
+                    <!-- Q3 -->
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span>What happened on the campus sick bed?</span>
+                            <span class="accordion-icon">+</span>
+                        </button>
+                        <div class="accordion-content">
+                            <p>I got her upset and she didn't speak to me for a whole day. At the time, I fell sick, unable to go to school. I sent Black to beg her for forgiveness, but she refused. Despite being weak and sick in bed, I got up, ran to campus, and knelt in public to apologize to her. That evening, she came to me, held me close, and confessed her deep love—wishing that I would be her first and last love until the end of her days.</p>
+                        </div>
+                    </div>
+                    <!-- Q4 -->
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span>What was our official beginning date?</span>
+                            <span class="accordion-icon">+</span>
+                        </button>
+                        <div class="accordion-content">
+                            <p>Our journey officially began on June 7, 2021, when Dinsagi agreed to be my girlfriend. It remains the happiest day of my life, a memory we protect in our private vault.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- 6. Love Letter Section -->
         <section id="letter" class="section-padding bg-dark letter-section">
             <div class="container narrow-container">
                 <div class="section-header text-center scroll-reveal">
                     <span class="section-tag">Unsent</span>
                     <h2 class="section-title">A Letter to Dinsagi</h2>
-                    <p class="section-subtitle">Words kept in the corners of my mind</p>
+                    <p class="section-subtitle">Click the envelope to slide open the letter and reveal the contents</p>
                     <div class="divider"></div>
                 </div>
 
-                <div class="letter-paper-wrapper scroll-reveal">
-                    <div class="letter-paper">
-                        <div class="letter-lines"></div>
-                        <div class="letter-content-text typewriter-target" id="loveLetterText">
-                            <!-- JS will inject the typewriter text here dynamically when in view -->
+                <div class="envelope-wrapper scroll-reveal" id="envelopeWrapper">
+                    <div class="envelope">
+                        <div class="envelope-flap"></div>
+                        <div class="envelope-front"></div>
+                        <div class="envelope-back"></div>
+                        <div class="letter-paper">
+                            <div class="letter-lines"></div>
+                            <div class="letter-content-text typewriter-target" id="loveLetterText">
+                                <!-- JS will inject the typewriter text here dynamically when envelope is clicked -->
+                            </div>
                         </div>
                     </div>
-                    <!-- Fallback content for SEO or disabled JS -->
-                    <noscript>
-                        <div class="letter-content-text">
-                            <p class="letter-salutation">To Dinsagi,</p>
-                            <p>There are chapters in our lives that we write with permanent ink, and ours is one of them. Looking back at the classrooms in Tamale, the quiet moments sharing tea while the world rushed around us, and the times we couldn't stand to be apart for even a second, I realize how deeply you shaped my world. I loved you with every fiber of my being.</p>
-                            <p>Although our paths have diverged, and the silence has taken the place of our conversations, none of that dims the light of what we shared. I write this not to hold on, but to honor what was. If I had the choice, in another life, I would still choose you.</p>
-                            <p class="letter-closing">With respect and warmth,</p>
-                            <p class="letter-signature">Always ❤️</p>
-                        </div>
-                    </noscript>
                 </div>
+                <!-- Fallback content for SEO or disabled JS -->
+                <noscript>
+                    <div class="letter-content-text" style="background: #f7f3e8; color: #333; padding: 30px; border-radius: 8px; max-width: 600px; margin: 0 auto;">
+                        <p class="letter-salutation" style="font-family: serif; font-size: 1.3rem; margin-bottom: 15px; color: #222;">To Dinsagi,</p>
+                        <p style="line-height: 1.6; margin-bottom: 15px; font-size: 1rem;">There are chapters in our lives that we write with permanent ink, and ours is one of them. Looking back at the classrooms in Tamale, the quiet moments sharing tea while the world rushed around us, and the times we couldn't stand to be apart for even a second, I realize how deeply you shaped my world. I loved you with every fiber of my being.</p>
+                        <p style="line-height: 1.6; margin-bottom: 15px; font-size: 1rem;">Although our paths have diverged, and the silence has taken the place of our conversations, none of that dims the light of what we shared. I write this not to hold on, but to honor what was. If I had the choice, in another life, I would still choose you.</p>
+                        <p class="letter-closing" style="font-family: serif; font-size: 1.1rem; margin-top: 20px; color: #222;">With respect and warmth,</p>
+                        <p class="letter-signature" style="font-family: serif; font-size: 1.1rem; color: #e75a70; font-weight: bold;">Always ❤️</p>
+                    </div>
+                </noscript>
             </div>
         </section>
 
