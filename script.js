@@ -4,6 +4,17 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Load click-to-plant memory stars
+    let memoryStars = [];
+    try {
+        const stored = localStorage.getItem('memoryStars');
+        if (stored) {
+            memoryStars = JSON.parse(stored);
+        }
+    } catch(err) {
+        console.log("Error loading memory stars", err);
+    }
+
     // ==========================================
     // 1. LOADING SCREEN
     // ==========================================
@@ -48,10 +59,39 @@ document.addEventListener('DOMContentLoaded', () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Track mouse
+    // Track mouse & Tooltip hover for named stars
+    const starTooltip = document.getElementById('starTooltip');
     window.addEventListener('mousemove', (e) => {
         mouse.x = e.x;
         mouse.y = e.y;
+        
+        if (!canvas || !starTooltip) return;
+        
+        const rect = canvas.getBoundingClientRect();
+        const canvasX = e.clientX - rect.left;
+        const canvasY = e.clientY - rect.top;
+        
+        let hoveredStar = null;
+        for (let i = 0; i < memoryStars.length; i++) {
+            const star = memoryStars[i];
+            let dx = star.x - canvasX;
+            let dy = star.y - canvasY;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+            
+            if (dist < 15) {
+                hoveredStar = star;
+                break;
+            }
+        }
+        
+        if (hoveredStar) {
+            starTooltip.textContent = hoveredStar.note;
+            starTooltip.style.left = (e.clientX + 15) + 'px';
+            starTooltip.style.top = (e.clientY + 15) + 'px';
+            starTooltip.classList.remove('hidden');
+        } else {
+            starTooltip.classList.add('hidden');
+        }
     });
     
     window.addEventListener('mouseleave', () => {
@@ -171,6 +211,78 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Draw click-to-plant memory stars
+    function drawMemoryStars() {
+        for (let i = 0; i < memoryStars.length; i++) {
+            const star = memoryStars[i];
+            
+            // Pulse opacity
+            if (!star.pulseDir) star.pulseDir = 1;
+            if (!star.pulseSpeed) star.pulseSpeed = Math.random() * 0.01 + 0.005;
+            
+            star.opacity += star.pulseSpeed * star.pulseDir;
+            if (star.opacity > 0.95 || star.opacity < 0.35) {
+                star.pulseDir = -star.pulseDir;
+            }
+            
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(212, 175, 55, ${star.opacity})`;
+            
+            // Make them glow in canvas
+            ctx.shadowColor = '#d4af37';
+            ctx.shadowBlur = 12;
+            ctx.fill();
+            ctx.shadowBlur = 0; // Reset shadow for normal particles
+            
+            // Connect memory stars to other floating stars
+            for (let j = 0; j < particlesArray.length; j++) {
+                let dx = star.x - particlesArray[j].x;
+                let dy = star.y - particlesArray[j].y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 90) {
+                    ctx.beginPath();
+                    ctx.moveTo(star.x, star.y);
+                    ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                    const opacity = (1 - (dist / 90)) * 0.12;
+                    ctx.strokeStyle = `rgba(212, 175, 55, ${opacity})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    // Canvas click event to plant a named star
+    canvas.addEventListener('click', (e) => {
+        // Only trigger if canvas is clicked directly
+        if (e.target !== canvas) return;
+        
+        const note = prompt("Write a brief memory for this star:");
+        if (!note || note.trim() === '') return;
+        
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.clientX - rect.left;
+        const clientY = e.clientY - rect.top;
+        
+        const newStar = {
+            x: clientX,
+            y: clientY,
+            size: Math.random() * 3 + 2.5,
+            note: note.trim(),
+            opacity: 0.8,
+            pulseDir: 1,
+            pulseSpeed: Math.random() * 0.015 + 0.005
+        };
+        
+        memoryStars.push(newStar);
+        try {
+            localStorage.setItem('memoryStars', JSON.stringify(memoryStars));
+        } catch(err) {
+            console.log("Error saving memory star", err);
+        }
+    });
+
     // Animation Loop
     function animateParticles() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -178,6 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
             particlesArray[i].update();
             particlesArray[i].draw();
         }
+        drawMemoryStars();
         connectParticles();
         requestAnimationFrame(animateParticles);
     }
@@ -867,6 +980,170 @@ document.addEventListener('DOMContentLoaded', () => {
         bottleModal.addEventListener('click', (e) => {
             if (e.target === bottleModal) {
                 closeBottle();
+            }
+        });
+    }
+
+    // ==========================================
+    // 19. DRAG-AND-DROP POLAROID BOARD VIEW
+    // ==========================================
+    const toggleBtn = document.getElementById('galleryViewToggleBtn');
+    const masonry = document.querySelector('.gallery-masonry');
+    const originalStyles = [];
+    let isBoardView = false;
+    let highestZ = 100;
+    
+    if (toggleBtn && masonry) {
+        toggleBtn.addEventListener('click', () => {
+            isBoardView = !isBoardView;
+            if (isBoardView) {
+                masonry.classList.add('board-view');
+                toggleBtn.textContent = 'Switch to Grid View 🗂️';
+                initBoardLayout();
+            } else {
+                masonry.classList.remove('board-view');
+                toggleBtn.textContent = 'Switch to Board View 📌';
+                resetBoardLayout();
+            }
+        });
+    }
+    
+    function initBoardLayout() {
+        const items = masonry.querySelectorAll('.gallery-item');
+        const boardWidth = masonry.clientWidth;
+        const boardHeight = masonry.clientHeight;
+        
+        items.forEach((item, index) => {
+            // Save original styles if we haven't already
+            if (originalStyles.length <= index) {
+                originalStyles.push({
+                    position: item.style.position || '',
+                    left: item.style.left || '',
+                    top: item.style.top || '',
+                    zIndex: item.style.zIndex || '',
+                    transform: item.style.transform || ''
+                });
+            }
+            
+            // Random scatter coordinates inside board boundary
+            const randomX = Math.random() * (boardWidth - 190) + 10;
+            const randomY = Math.random() * (boardHeight - 230) + 10;
+            const randomRot = Math.random() * 24 - 12; // -12deg to 12deg
+            
+            item.style.position = 'absolute';
+            item.style.left = randomX + 'px';
+            item.style.top = randomY + 'px';
+            item.style.zIndex = index + 5;
+            item.style.transform = `rotate(${randomRot}deg)`;
+            
+            // Wire up drag events
+            makeDraggable(item);
+        });
+    }
+    
+    function resetBoardLayout() {
+        const items = masonry.querySelectorAll('.gallery-item');
+        items.forEach((item, index) => {
+            const orig = originalStyles[index];
+            if (orig) {
+                item.style.position = orig.position;
+                item.style.left = orig.left;
+                item.style.top = orig.top;
+                item.style.zIndex = orig.zIndex;
+                item.style.transform = orig.transform;
+            }
+        });
+    }
+    
+    function makeDraggable(el) {
+        let startX = 0, startY = 0;
+        let initialLeft = 0, initialTop = 0;
+        let isDragging = false;
+        
+        el.addEventListener('mousedown', dragStart);
+        el.addEventListener('touchstart', dragStart, { passive: true });
+        
+        function dragStart(e) {
+            if (!isBoardView) return;
+            
+            // Bring to front
+            highestZ++;
+            el.style.zIndex = highestZ;
+            
+            isDragging = true;
+            
+            const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+            
+            startX = clientX;
+            startY = clientY;
+            
+            initialLeft = parseFloat(el.style.left) || 0;
+            initialTop = parseFloat(el.style.top) || 0;
+            
+            document.addEventListener('mousemove', dragMove);
+            document.addEventListener('mouseup', dragEnd);
+            document.addEventListener('touchmove', dragMove, { passive: false });
+            document.addEventListener('touchend', dragEnd);
+        }
+        
+        function dragMove(e) {
+            if (!isDragging) return;
+            if (e.cancelable) e.preventDefault(); // Prevent touch scroll
+            
+            const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+            const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+            
+            const dx = clientX - startX;
+            const dy = clientY - startY;
+            
+            const newLeft = initialLeft + dx;
+            const newTop = initialTop + dy;
+            
+            const maxW = masonry.clientWidth - el.clientWidth;
+            const maxH = masonry.clientHeight - el.clientHeight;
+            
+            el.style.left = Math.max(0, Math.min(newLeft, maxW)) + 'px';
+            el.style.top = Math.max(0, Math.min(newTop, maxH)) + 'px';
+        }
+        
+        function dragEnd() {
+            isDragging = false;
+            document.removeEventListener('mousemove', dragMove);
+            document.removeEventListener('mouseup', dragEnd);
+            document.removeEventListener('touchmove', dragMove);
+            document.removeEventListener('touchend', dragEnd);
+        }
+    }
+
+    // ==========================================
+    // 20. CHRONOLOGY SLIDER NAVIGATOR
+    // ==========================================
+    const timelineSlider = document.getElementById('timelineSlider');
+    const sliderBubble = document.getElementById('sliderBubble');
+    
+    const navigatorTargets = [
+        { id: 'beginning', label: '2021' },
+        { id: 'journey', label: '2022' },
+        { id: 'gallery', label: '2023' },
+        { id: 'videos', label: '2024' },
+        { id: 'lessons', label: '2026' }
+    ];
+    
+    if (timelineSlider && sliderBubble) {
+        timelineSlider.addEventListener('input', () => {
+            const val = parseInt(timelineSlider.value);
+            const target = navigatorTargets[val];
+            
+            sliderBubble.textContent = target.label;
+            
+            // Sync slider bubble vertical positioning (0 to 4 scale, invert percent)
+            const percent = ((4 - val) / 4) * 80 + 10;
+            sliderBubble.style.top = percent + '%';
+            
+            const targetEl = document.getElementById(target.id);
+            if (targetEl) {
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     }

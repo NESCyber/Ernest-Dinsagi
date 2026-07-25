@@ -290,6 +290,7 @@
                     <h2 class="section-title">Frames of Our Memories</h2>
                     <p class="section-subtitle">Frozen moments from a beautiful chapter</p>
                     <div class="divider"></div>
+                    <button id="galleryViewToggleBtn" class="gallery-toggle-btn">Switch to Board View 📌</button>
                 </div>
 
                 <div class="gallery-masonry">
@@ -883,6 +884,17 @@
             </div>
         </div>
     </div>
+
+    <!-- Chronology Navigator Vertical Slider -->
+    <div class="chronology-navigator">
+        <span class="nav-label">2021</span>
+        <input type="range" id="timelineSlider" min="0" max="4" value="0" step="1" orient="vertical">
+        <span class="nav-label">2026</span>
+        <div id="sliderBubble" class="slider-bubble">2021</div>
+    </div>
+
+    <!-- Star Tooltip for Named Memory Stars -->
+    <div id="starTooltip" class="star-tooltip hidden"></div>
 
     <!-- Custom Scripts -->
     <script src="script.js"></script>
